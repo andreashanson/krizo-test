@@ -1,10 +1,29 @@
 # krizo-test
 
-set environment variables for mongoURI.
+# Start a mongo database with docker. Make sure you have docker installed.
+docker container run -t -p 27017:27017 mongo
 
-//Example
+# Install mongo if you don't wan't to use docker.
+sudo apt install mongodb-server-core
+create folders /data/db
+
+# Start a mongo database. Make sure you have mongo installed.
+type mongod
+
+# Set environment variables for mongoURI.
 export mongoURI="mongodb://127.0.0.1:27017/kryzo"
 
-//The token after Bearer <jwt_token> is the one you get after login. Save this for the client. It will be valid for 1 hour.
+# Register a new users
+curl -X POST -d name="<name>" -d password="<password>" http://localhost:5000/api/users
 
-curl -H "authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVjMzYyN2Y3YTBjNTA4MGRkNzM2OGI5YiIsIm5hbWUiOiJBbmRyZWFzIiwicGFzc3dvcmQiOiJkZGQiLCJfX3YiOjB9LCJpYXQiOjE1NDcxNTk1OTMsImV4cCI6MTU0NzE1OTY4M30.MWxX8jI847DIfY8X_IDxJcOmQGwMp43u6LHrphR1qv8" -X POST -d name="test" -d email="test@test.com" -d password="t35t" http://localhost:5000/api/customers
+# Login to get a temporary token that is valid for 1 hour.
+curl -X POST -d name="<name>" -d password="<password>" http://localhost:5000/api/login
+
+#Add a new customer <name> <password> <email> Use token you get after login.
+curl -H "token: <token>" -X POST -d name="test" -d email="test@test.com" -d password="t35t" http://localhost:5000/api/customers
+
+#List all customers
+curl -H "token: <token>" http://localhost:5000/api/customers
+
+#List customer by id
+curl -H "token: <token>" http://localhost:5000/api/customers/<customer_id>

@@ -1,0 +1,27 @@
+{
+  "name": "krizo-test",
+  "version": "1.0.0",
+  "description": "Krizo Test",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreashanson/krizo-test.git"
+  },
+  "author": "Andreas Hansson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andreashanson/krizo-test/issues"
+  },
+  "homepage": "https://github.com/andreashanson/krizo-test#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.3",
+    "path": "^0.12.7"
+  }
+}

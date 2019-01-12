@@ -20,6 +20,10 @@ app.use('/api/users', users);
 app.use('/api/customers', customers);
 app.use('/api/login', login);
 
+app.get('/', (req, res) => {
+	res.send("/api/users, /api/customers, /api/login")
+});
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {

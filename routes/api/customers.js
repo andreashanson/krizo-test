@@ -4,26 +4,32 @@ const router = express.Router();
 const Customer = require('../../schemas/customer');
 
 
-router.get('/', (req, res) => {
-  Customer.find({}, (customers, err) => {
-  	if (err) return res.status(400).json({message: "Error", error: err});
-  	res.json(customers)
+router.get('/', verifyToken, (req, res) => {
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
+    if (err) return res.status(400).json({message: "Error", error: err});
+    Customer.find({}, (err, customers) => {
+  	  if (err) return res.status(400).json({message: "Error", error: err});
+  	  res.json(customers)
+    });
   });
 });
 
 
-router.get('/:id', (req, res) => {
+router.get('/:id', verifyToken, (req, res) => {
   const id = req.params.id;
-  Customer.find({_id: id}, (err, customer) => {
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
+    if (err) return res.status(400).json({message: "Error", error: err});
+    Customer.find({_id: id}, (err, customer) => {
       if (err) return res.status(400).json({message: "Error", error: err});
       res.json(customer);
+    });
   });
 });
 
 
 router.post('/', verifyToken, (req, res, next) => {
   jwt.verify(req.token, 'secretkey', (err, authData) => {
-    if (err) return res.status(403).json({message: "Forbidden"});
+    if (err) return res.status(403).json({message: "Error", error: err});
     const data = {
       name: req.body.name,
       password: req.body.password,
@@ -38,19 +44,14 @@ router.post('/', verifyToken, (req, res, next) => {
 });
 
 function verifyToken(req, res, next) {
-
-  const bearerHeader = req.headers['authorization'];
-
-  if (typeof bearerHeader !== 'undefined') {
-    const bearer = bearerHeader.split(' ');
-    const bearerToken = bearer[1];
-    req.token = bearerToken;
+  const token = req.headers["token"];
+  if (typeof token !== 'undefined') {
+    req.token = token;
     next();
   }
   else {
     res.status(403).json({message: "Forbidden. Undefined Header."});
   }
-
 }
 
 module.exports = router;

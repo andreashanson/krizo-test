@@ -6,13 +6,13 @@ const User = require('../../schemas/user');
 // List all users
 router.get('/', (req, res) => {
   User.find({}, (err, users) => {
-  	if (err) return res.status(400).json({message: "Error", error: err});    
+  	if (err) return res.status(400).json({message: "Error", error: err});
     res.json(users)
   });
 });
 
 
-// List one user
+// List user by id
 router.get('/:id', (req, res) => {
   const id = req.params.id;
   User.find({_id: id}, (err, user) => {
@@ -25,6 +25,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res, next) => {
   const data = {
     name: req.body.name,
+    //TODO salt this password before post it to DB
     password: req.body.password
   }
 
