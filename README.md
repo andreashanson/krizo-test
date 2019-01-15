@@ -10,8 +10,10 @@ create folders /data/db
 # Start a mongo database. Make sure you have mongo installed.
 type mongod
 
-# Set environment variables for mongoURI.
+# Set environment variables.
 export mongoURI="mongodb://127.0.0.1:27017/kryzo"
+export serverURL="http://127.0.0.1:5000"
+
 
 # Register a new users
 curl -X POST -d name="<name>" -d password="<password>" http://localhost:5000/api/users

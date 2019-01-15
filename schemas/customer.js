@@ -6,7 +6,7 @@ var customerSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    password: {
+    phone: {
       type: String,
       required: true
     },

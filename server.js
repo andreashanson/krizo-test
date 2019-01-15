@@ -7,7 +7,7 @@ const customers = require('./routes/api/customers');
 const login = require('./routes/api/login');
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const uri = require('./configs').URI;
 

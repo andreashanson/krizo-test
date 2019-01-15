@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 const router = express.Router();
 const Customer = require('../../schemas/customer');
 
@@ -32,7 +33,7 @@ router.post('/', verifyToken, (req, res, next) => {
     if (err) return res.status(403).json({message: "Error", error: err});
     const data = {
       name: req.body.name,
-      password: req.body.password,
+      phone: req.body.phone,
       email: req.body.email
     }
 
@@ -43,14 +44,15 @@ router.post('/', verifyToken, (req, res, next) => {
   });
 });
 
+
 function verifyToken(req, res, next) {
-  const token = req.headers["token"];
-  if (typeof token !== 'undefined') {
-    req.token = token;
+  try {
+    const data = fs.readFileSync('token.txt', 'utf8')
+    req.token = data;
     next();
   }
-  else {
-    res.status(403).json({message: "Forbidden. Undefined Header."});
+  catch (err) {
+    return res.status(400).json({message: "Error", error: err});
   }
 }
 

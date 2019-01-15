@@ -22,7 +22,7 @@ router.get('/:id', (req, res) => {
 });
 
 // Register new user
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
   const data = {
     name: req.body.name,
     //TODO salt this password before post it to DB
