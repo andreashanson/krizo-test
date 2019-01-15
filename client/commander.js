@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const commander = require('commander');
 const registerUser = require('./functions').registerUser;
 const loginUser = require('./functions').loginUser;
