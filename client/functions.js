@@ -26,8 +26,8 @@ function fetchGET(url, endpoint) {
 	.then(function(response) {
     	return response.json();
 	})
-	.then(function(myJson) {
-    	console.log(JSON.stringify(myJson));
+	.then(function(json) {
+    	console.log(json);
 	});
 }
 

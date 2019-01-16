@@ -28,7 +28,7 @@ router.get('/:id', verifyToken, (req, res) => {
 });
 
 
-router.post('/', verifyToken, (req, res, next) => {
+router.post('/', verifyToken, doesCustomerExist, (req, res, next) => {
   jwt.verify(req.token, 'secretkey', (err, authData) => {
     if (err) return res.status(403).json({message: "Error", error: err});
     const data = {
@@ -43,6 +43,20 @@ router.post('/', verifyToken, (req, res, next) => {
     });
   });
 });
+
+
+function doesCustomerExist(req, res, next) {
+  const name = req.body.name;
+  console.log(name);
+  Customer.find({name: name}, (err, customer) => {
+    if (customer.length == 0) {
+      next();
+    }
+    else if (customer.length > 0) {
+      return res.status(400).json({message: "Customer does already exist."});      
+    }
+  });
+}
 
 
 function verifyToken(req, res, next) {

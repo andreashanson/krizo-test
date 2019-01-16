@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
 				fs.writeFile('token.txt', token, (err) => {
 					if (err) return res.status(400).json({message: "Error", error: err});
 				});
-    			res.json({message: "Token file updated!"});
+	    		res.json({message: "Token file updated!"});
 			});
 		}
 		else {

@@ -21,11 +21,17 @@ curl -X POST -d name="<name>" -d password="<password>" http://localhost:5000/api
 # Login to get a temporary token that is valid for 1 hour.
 curl -X POST -d name="<name>" -d password="<password>" http://localhost:5000/api/login
 
-#Add a new customer <name> <password> <email> Use token you get after login.
-curl -H "token: <token>" -X POST -d name="test" -d email="test@test.com" -d password="t35t" http://localhost:5000/api/customers
+#Add a new customer <name> <phone> <email> Use token you get after login.
+curl -H "token: <token>" -X POST -d name="test" -d email="test@test.com" -d phone="031-6666" http://localhost:5000/api/customers
 
 #List all customers
 curl -H "token: <token>" http://localhost:5000/api/customers
 
 #List customer by id
 curl -H "token: <token>" http://localhost:5000/api/customers/<customer_id>
+
+
+#TODO
+
+Save token in db.user collection instead of text file. Then update it every time the user logs in.
+Fix bug adding user with same name.
