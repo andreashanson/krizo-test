@@ -34,4 +34,6 @@ curl -H "token: <token>" http://localhost:5000/api/customers/<customer_id>
 #TODO
 
 Save token in db.user collection instead of text file. Then update it every time the user logs in.
-Fix bug adding user with same name.
+Search
+Fix middleware for checking which user is doing the request to api. And not use same token. Each user uses it's own temp generated token.
+Refacture code split in to functions and clean up.

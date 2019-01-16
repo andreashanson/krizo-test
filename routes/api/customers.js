@@ -28,6 +28,15 @@ router.get('/:id', verifyToken, (req, res) => {
 });
 
 
+router.get('/search/:search', verifyToken, (req, res, next) => {
+  const search = new RegExp(req.params.search, 'i');
+  Customer.find({$or: [{name: search}, {phone: search}, {email: search}]}, (err, result) => {
+    if (err) return res.status(400).json({message: "Error", error: err});
+    res.json({result:result, matches: result.length});
+  });
+});
+
+
 router.post('/', verifyToken, doesCustomerExist, (req, res, next) => {
   jwt.verify(req.token, 'secretkey', (err, authData) => {
     if (err) return res.status(403).json({message: "Error", error: err});
@@ -47,7 +56,6 @@ router.post('/', verifyToken, doesCustomerExist, (req, res, next) => {
 
 function doesCustomerExist(req, res, next) {
   const name = req.body.name;
-  console.log(name);
   Customer.find({name: name}, (err, customer) => {
     if (customer.length == 0) {
       next();

@@ -5,6 +5,7 @@ const registerUser = require('./functions').registerUser;
 const loginUser = require('./functions').loginUser;
 const getCustomers = require('./functions').getCustomers;
 const addCustomer = require('./functions').addCustomer;
+const searchCustomer = require('./functions').searchCustomer;
 
 
 commander
@@ -35,6 +36,12 @@ commander
 	.command('add <name> <phone> <email>')
 	.action((name, phone, email) => {
 		addCustomer(name, phone, email);
+	});
+
+commander
+	.command('search <search>')
+	.action((search) => {
+		searchCustomer(search);
 	});
 
 commander.parse(process.argv);	

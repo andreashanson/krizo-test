@@ -21,6 +21,10 @@ const addCustomer = (name, phone, email) => {
 	fetchPOST(server_url, "/api/customers", data);
 }
 
+const searchCustomer = (search) => {
+	fetchGET(server_url, "/api/customers/search/" + search);
+}
+
 function fetchGET(url, endpoint) {
 	fetch(url+endpoint)
 	.then(function(response) {
@@ -51,5 +55,6 @@ module.exports = {
 	registerUser,
 	loginUser,
 	getCustomers,
-	addCustomer
+	addCustomer,
+	searchCustomer
 }
