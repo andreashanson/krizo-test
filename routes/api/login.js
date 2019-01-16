@@ -13,13 +13,15 @@ router.post('/', (req, res) => {
 				fs.writeFile('token.txt', token, (err) => {
 					if (err) return res.status(400).json({message: "Error", error: err});
 				});
-	    		res.json({message: "Token file updated!"});
+	    		User.findByIdAndUpdate(user._id, {token: token}, (err, user) => {
+		    		res.json({message: "Token updated in DB"});
+	    		});
 			});
 		}
 		else {
 			return res.status(403).json({message: "Wrong password"});
 		}
-	})
+	});
 });
 
 module.exports = router;

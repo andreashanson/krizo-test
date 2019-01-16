@@ -27,11 +27,10 @@ const searchCustomer = (search) => {
 
 function fetchGET(url, endpoint) {
 	fetch(url+endpoint)
-	.then(function(response) {
-    	return response.json();
-	})
-	.then(function(json) {
-    	console.log(json);
+	.then(res => res.json()) 
+	.then((json) => {
+		if (json.error) console.log(json.error);
+		else console.log(json);
 	});
 }
 
@@ -45,9 +44,7 @@ function fetchPOST(url, endpoint, data) {
 		}
 	})
 	.then(res => res.json())
-	.then(response => {
-		console.log('Success: ', JSON.stringify(response))
-	})
+	.then(json => console.log(json))
 	.catch(error => console.log('Error:', error));
 }
 
